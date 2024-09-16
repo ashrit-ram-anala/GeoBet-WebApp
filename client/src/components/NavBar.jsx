@@ -47,37 +47,62 @@ const NavBar = () => {
   };
 
   return (
-    <nav>
-      <nav className="bg-white border-gray-200 dark:bg-gray-900">
-        <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-          <div className="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-            {userName ? (
-              <div className="flex items-center space-x-4"> {/* Adjusted spacing here */}
-                <p className="text-gray-900 dark:text-white">Welcome, {userName}</p>
-                <button className="btn btn-primary" onClick={sign_out}>Sign Out</button>
-              </div>
-            ) : (
-              <button className="btn btn-primary" onClick={sign_in}>Login</button>
-            )}
-          </div>
-          <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-cta">
-            <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
-              <li>
-                <Link to='/' className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Home</Link>
-              </li>
-              <li>
-                <Link to='/game' className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Play</Link>
-              </li>
-              <li>
-                <Link to='/store' className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Store</Link>
-              </li>
-              <li>
-                <Link to='/leaderboard' className="block py-2 px-3 md:p-0 text-gray-900 rounded hover:bg-gray-100 dark:text-white">Leaderboard</Link>
-              </li>
-            </ul>
-          </div>
+    <nav className="bg-white border-gray-200 dark:bg-gray-900">
+      <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+        <div className="flex items-center md:order-2">
+          {userName ? (
+            <div className="flex items-center space-x-4">
+              <p className="text-gray-900 dark:text-white">Welcome, {userName}</p>
+              <button className="btn btn-primary" onClick={sign_out}>Sign Out</button>
+            </div>
+          ) : (
+            <button className="btn btn-primary" onClick={sign_in}>Login</button>
+          )}
         </div>
-      </nav>
+
+        <div className="relative md:hidden flex items-center">
+          <button className="btn btn-primary" type="button" data-drawer-toggle="default-sidebar">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path>
+            </svg>
+          </button>
+        </div>
+
+        <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1">
+          <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 rounded-lg md:space-x-8 md:flex-row md:mt-0 md:border-0">
+            <li>
+              <Link to='/' className="block py-2 px-3 text-gray-900 rounded hover:text-primary dark:text-white">Home</Link>
+            </li>
+            <li>
+              <Link to='/game' className="block py-2 px-3 text-gray-900 rounded hover:text-primary dark:text-white">Play</Link>
+            </li>
+            <li>
+              <Link to='/leaderboard' className="block py-2 px-3 text-gray-900 rounded hover:text-primary dark:text-white">Leaderboard</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="default-sidebar" className="fixed top-0 left-0 w-64 h-screen transition-transform -translate-x-full md:hidden">
+        <div className="bg-white border-gray-200 dark:bg-gray-900 h-full p-4">
+          <button type="button" data-drawer-dismiss="default-sidebar" aria-controls="default-sidebar" aria-expanded="false">
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+          <ul className="flex flex-col font-medium p-4 mt-4 rounded-lg">
+            <li>
+              <Link to='/' className="block py-2 px-3 text-gray-900 rounded hover:text-primary dark:text-white">Home</Link>
+            </li>
+            <li>
+              <Link to='/game' className="block py-2 px-3 text-gray-900 rounded hover:text-primary dark:text-white">Play</Link>
+            </li>
+            <li>
+              <Link to='/leaderboard' className="block py-2 px-3 text-gray-900 rounded hover:text-primary dark:text-white">Leaderboard</Link>
+            </li>
+          </ul>
+        </div>
+      </div>
     </nav>
   );
 };
