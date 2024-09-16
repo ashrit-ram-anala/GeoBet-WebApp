@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import axios from "axios";
+import {Link} from 'react-router-dom'
 import NavBar from "../components/NavBar"
 
 
@@ -13,8 +14,11 @@ function Home() {
     <NavBar />
     <div className="flex justify-center mt-64">
     <div className="relative">
-<div className="flex"> <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Casin-</h1><h1 className="text-4xl md:text-5xl lg:text-6xl relative top-0 w-full justify-center flex bg-gradient-to-r h-20 from-pink-500 via-indigo-500 to-green-500 bg-clip-text text-6xl font-extrabold text-transparent">Glo</h1></div>
+<div className="flex"> <h1 className="text-center mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white text-center">Geo-</h1><h1 className="text-4xl md:text-5xl lg:text-6xl relative top-0 w-full justify-center flex bg-gradient-to-r h-20 from-pink-500 via-indigo-500 to-green-500 bg-clip-text text-6xl font-extrabold text-transparent">Bet</h1></div>
    <h3 className="text-center place-content-center font-bold">Bet on The World</h3>
+   <div className="flex items-center justify-center mt-5">
+   <Link to='/game' className="btn btn-primary">Play</Link>
+        </div>
    </div>
   <div class="bg-animation">
          <div id="stars"></div>
