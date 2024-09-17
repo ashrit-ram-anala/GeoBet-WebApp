@@ -5,7 +5,7 @@ import axios from 'axios'
 const Leaderboard = ({}) => {
    const [users, setUsers] = useState([])
   useEffect(()=>{
-    axios.get('https://geo-bet-web-app-frontend.vercel.app/api/leaderboard')
+    axios.get('https://geo-bet-web-app-backend.vercel.app/api/leaderboard')
       .then(users => setUsers(users.data))
   }, [])
 
