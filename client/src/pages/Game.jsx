@@ -24,7 +24,7 @@ const Game = () => {
   
   const fetchAPI = async () => {
     try {
-      const response = await axios.get("https://geo-bet-web-app-frontend.vercel.app/api/all");
+      const response = await axios.get("https://geo-bet-web-app-backend.vercel.app/api/all");
       const fetchedQuestions = response.data.results;
 
       setQuestions(fetchedQuestions);
@@ -130,7 +130,7 @@ const Game = () => {
           questionsAnswered: questionsAnswered
         };
       console.log(userData);
-        axios.post('http://localhost:8080/api/save-game', userData)
+        axios.post('https://geo-bet-web-app-backend.vercel.app/api/save-game', userData)
           .then(response => {
             console.log('Game data successfully sent to backend:', response.data);
           })
@@ -167,7 +167,7 @@ const Game = () => {
       questionsAnswered: questionsAnswered
   };
 
-  axios.post('http://localhost:8080/api/save-game', userData)
+  axios.post('https://geo-bet-web-app-backend.vercel.app/api/save-game', userData)
       .then(response => {
           console.log('Game data successfully sent to backend:', response.data);
       })
