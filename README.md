@@ -7,7 +7,7 @@ Made for the **change-coding-challenge-2024** by the **C++hange** Organization.
 # Overview 
 
 ### Frontend
-Frameworks: **React + Vite (JSX)**, **Firebase Anonymous User Authentication**, **Tailwind CSS**
+Frameworks: **React + Vite (JSX)**, **Firebase User Authentication**, **Tailwind CSS**
 
 Component Library: **DaisyUI**
 
