@@ -24,7 +24,7 @@ const Game = () => {
   
   const fetchAPI = async () => {
     try {
-      const response = await axios.get("http://localhost:8080/api/all");
+      const response = await axios.get("https://geo-bet-web-app-frontend.vercel.app/api/all");
       const fetchedQuestions = response.data.results;
 
       setQuestions(fetchedQuestions);
