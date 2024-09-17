@@ -53,6 +53,7 @@ app.get("/api/medium", (req,res) =>{
 mongoose.connect('mongodb+srv://ashritramanala:B70X2r9aRrrMaZvO@geo-betcluster.i4cvc.mongodb.net/?retryWrites=true&w=majority&appName=Geo-BetCluster');
 
 const userSchema = new mongoose.Schema({
+    userDisplayName: String,
     score: Number,
     coins: Number,
     questionsAnswered: Number
@@ -74,20 +75,29 @@ app.get('/api/leaderboard', (req, res) => {
 });
 
 app.post('/api/save-game', (req, res) => {
-    const {score, coins, questionsAnswered } = req.body;
-    const newGameData = new userModel({
-        score,
-        coins,
-        questionsAnswered
-    });
+    const { userDisplayName, score, coins, questionsAnswered } = req.body;
+    userModel.findOne({ userDisplayName })
+        .then((existingUser) => {
+            if (existingUser) {
+                if (score > existingUser.score) {
+                    existingUser.score = score;
+                    existingUser.coins = coins;
+                    existingUser.questionsAnswered = questionsAnswered;
+                    
+                    existingUser.save()
 
-    newGameData.save()
-        .then(() => {
-            res.status(200).json({ message: 'Game data saved successfully!' });
+                }
+            } else {
+                const newUser = new userModel({
+                    userDisplayName,
+                    score,
+                    coins,
+                    questionsAnswered
+                });
+                
+                newUser.save()
+            }
         })
-        .catch(error => {
-            res.status(500).json({ message: 'Error saving game data', error });
-        });
 });
 
  

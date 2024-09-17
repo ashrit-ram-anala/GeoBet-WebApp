@@ -4,7 +4,7 @@ import { getAuth, signInWithPopup, GoogleAuthProvider, setPersistence, browserLo
 import { app } from "../../firebaseConfig";
 import '../index.css';
 
-const NavBar = () => {
+const NavBar = ({setUser}) => {
   const [userName, setUserName] = useState(null);
   const provider = new GoogleAuthProvider();
   const auth = getAuth(app);
@@ -14,7 +14,12 @@ const NavBar = () => {
       .then(() => {
         onAuthStateChanged(auth, (user) => {
           if (user) {
+            const displayName = user.displayName;
+            const uid = user.uid;
+            console.log(uid);
+            console.log(displayName);
             setUserName(user.displayName);
+            setUser(user.displayName);
           } else {
             setUserName(null); 
           }
@@ -30,6 +35,7 @@ const NavBar = () => {
       .then((result) => {
         const user = result.user;
         setUserName(user.displayName);
+        console.log(userName);
       })
       .catch((error) => {
         console.error("Error during sign-in:", error);
