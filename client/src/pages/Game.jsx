@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NavBar from "../components/NavBar";
 
-const Game = ({ userName }) => {
+const Game = () => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [options, setOptions] = useState([]);
@@ -20,7 +20,7 @@ const Game = ({ userName }) => {
   const [gameStarted, setGameStarted] = useState(false);
   const [highlightedAnswer, setHighlightedAnswer] = useState(null);
   const [coinsGained, setCoinsGained] = useState(0);
-
+  const [userName, setUserName] = useState("");
   
   const fetchAPI = async () => {
     try {
@@ -124,11 +124,12 @@ const Game = ({ userName }) => {
         saveGameData(finalCoins, finalScore);
       
         const userData = {
+          userDisplayName: userName,
           coins: finalCoins,
           score: finalScore,
           questionsAnswered: questionsAnswered
         };
-      
+      console.log(userData);
         axios.post('http://localhost:8080/api/save-game', userData)
           .then(response => {
             console.log('Game data successfully sent to backend:', response.data);
@@ -160,6 +161,7 @@ const Game = ({ userName }) => {
     saveGameData(finalCoins, finalCoins * newQuestionsAnswered);
 
     const userData = {
+      userDisplayName: userName,
       coins: finalCoins,
       score: finalCoins * newQuestionsAnswered,
       questionsAnswered: questionsAnswered
@@ -186,19 +188,20 @@ const Game = ({ userName }) => {
 
   return (
     <div>
-      <NavBar />
+      <NavBar setUser={setUserName}/>
       <div className="p-4 flex justify-center mt-10">
         {!gameStarted ? (
            <a href="#" className="block p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
             <div className="card-body">
+              <div className="flex justify-center items-center">
               <h2 className="card-title text-center mb-4">Game Instructions</h2>
-              <p className="text-lg text-red-500">Disclaimer: May need to refresh several times if questions not loading. Questions API rate-limits me :(</p>
+              </div>
+              <p className="text-lg text-red-500">Disclaimer: May need to refresh several times if questions are not loading. Questions API rate-limits me :(</p>
+                <p className="text-lg text-cyan-500">Don't forget to log in!</p>
               <br></br>
               <p className="text-lg">You start this session with {coins} coins. answer trivia and make bets!</p>
-              <p className="text-lg">- Each geography trivia question has a 20-second timer.</p>
-      <p className="text-lg">- Each second is worth 1 coin. The faster you answer, the more coins you earn.</p>
-      <p className="text-lg">- If you are a returning player, you start with your current coin value (100 if first time).</p>
-      <p className="text-lg">- Your score is your new coins earned x questions answered correctly. If you lose your bets, your score is 0 as you gained nothing</p>
+      <p className="text-lg">- You have 20 seconds and each second is worth 1 coin. The faster you answer, the more coins you earn.</p>
+      <p className="text-lg">- Your score is your new coins earned x questions answered correctly. Your coin amount transfers between rounds.</p>
       <p className="text-lg">- You lose if you get 5 wrong.</p>
       <p className="text-lg">- To beat the house, answer 25 randomly selected multiple choice geography questions in under 5 mistakes.</p>
       <p className="text-lg">- All scores of those who make no money are 0. Losses (5 wrong) still get scores.</p>
