@@ -3,7 +3,7 @@ const app = express();
 const axios = require("axios");
 const cors = require("cors");
 const mongoose = require('mongoose');
-const corsOptions = {origin: ["http://localhost:5173"]};
+const corsOptions = {origin: ["https://geo-bet-web-app-frontend.vercel.app/"]};
 const PORT = '8080';
 
 app.use(express.json())
