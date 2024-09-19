@@ -35,19 +35,30 @@ npm init
 
 ### Install Dependencies & Frameworks
 
+#### Backend
+
 ```
 cd server
 npm i express
 npm i cors
 npm i axios
 npm i mongoose
+npm i nodemon
 ```
+go to package.json and add the following scripts
+
+```
+"start": "node server"
+"dev": "nodemon server"
+```
+
+#### Frontend
 
 ```
 cd ../client
 npm create vite@latest
 ```
-and create React app with Javascript only. Name the folder client and place the cloned files in the client folder
+and create React app with Javascript only with a project name of client
 
 ```
 npm i firebase
