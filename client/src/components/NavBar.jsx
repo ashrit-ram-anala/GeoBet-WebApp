@@ -6,11 +6,11 @@ import '../index.css';
 
 const NavBar = ({setUser}) => {
   const [userName, setUserName] = useState(null);
-  const provider = new GoogleAuthProvider();
-  const auth = getAuth(app);
+  const provider = new GoogleAuthProvider(); //setup for google provider for google login
+  const auth = getAuth(app); // setup for auth
 
   useEffect(() => {
-    setPersistence(auth, browserLocalPersistence)
+    setPersistence(auth, browserLocalPersistence) //sets persistence to keep user logged in even on reload or close
       .then(() => {
         onAuthStateChanged(auth, (user) => {
           if (user) {
@@ -25,31 +25,25 @@ const NavBar = ({setUser}) => {
           }
         });
       })
-      .catch((error) => {
-        console.error("Error setting persistence:", error);
-      });
+    
   }, [auth]);
 
-  const sign_in = () => {
+  const sign_in = () => { //allows user to sign in with google popup and sets userName
     signInWithPopup(auth, provider)
       .then((result) => {
         const user = result.user;
         setUserName(user.displayName);
         console.log(userName);
       })
-      .catch((error) => {
-        console.error("Error during sign-in:", error);
-      });
+      
   };
 
-  const sign_out = () => {
+  const sign_out = () => { //allows users to sign out
     signOut(auth)
       .then(() => {
         setUserName(null);
       })
-      .catch((error) => {
-        console.error("Error during sign-out:", error);
-      });
+     
   };
 
   return (
