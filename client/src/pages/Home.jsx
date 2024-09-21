@@ -1,9 +1,9 @@
-import React from 'react'
+import { useState, useEffect } from 'react'
+import axios from "axios";
 import {Link} from 'react-router-dom'
 import NavBar from "../components/NavBar"
 
 function Home() {
-  
 
   return (
 <>
@@ -22,7 +22,6 @@ function Home() {
          <div id="stars3"></div>
          <div id="stars4"></div>
      </div>
-
 
      <div class="blob"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 1000 1000"
          fill="#434646">
@@ -91,7 +90,3 @@ function Home() {
 }
 
 export default Home
-
-
-
-
