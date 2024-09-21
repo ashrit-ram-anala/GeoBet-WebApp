@@ -5,7 +5,7 @@ import axios from 'axios'
 const Leaderboard = ({}) => {
    const [users, setUsers] = useState([])
   useEffect(()=>{
-    axios.get('https://geo-bet-web-app-backend.vercel.app/api/leaderboard')
+    axios.get('http://localhost:8080/api/leaderboard') // gets all users in leaderboard to be formatted
       .then(users => setUsers(users.data))
   }, [])
 
@@ -13,7 +13,7 @@ const Leaderboard = ({}) => {
     <div>
       <NavBar />
     <div className="overflow-x-auto m-5">
-      <h2 className="text-2xl font-bold mb-4 text-white text-center">Top 100 Best Bets</h2>
+      <h2 className="text-2xl font-bold mb-4 text-white text-center">Top 25 Best Bets</h2>
       <h4 className="text-2sm font-bold mb-4 text-gray text-center">Categorized By Each User's Single Best Score</h4>
       <div className="flex justify-center items-center">
       <table className="table w-6/12 bg-slate-700">
