@@ -4,13 +4,14 @@ const axios = require("axios");
 const cors = require("cors");
 const mongoose = require('mongoose');
 const corsOptions = {origin: ["http://localhost:5173"]};
+require('dotenv').config()
 const PORT = '8080';
 
 app.use(express.json())
 app.use(cors(corsOptions));
 
-app.get("/api/all", (req,res) =>{ //main API endpoint to fetch questions of all difficulty in geography
-    axios.get("https://opentdb.com/api.php?amount=25&category=22&type=multiple")
+app.get("/api/all", (req,res) =>{
+    axios.get("https://opentdb.com/api.php?amount=25&category=22")
      .then((response) =>{
          res.json(response.data)
      })
@@ -19,7 +20,7 @@ app.get("/api/all", (req,res) =>{ //main API endpoint to fetch questions of all 
      })
  });
 
-app.get("/api/easy", (req,res) =>{ //rest of these are for specific difficulties
+app.get("/api/easy", (req,res) =>{
    axios.get("https://opentdb.com/api.php?amount=25&category=22&difficulty=easy&type=multiple")
     .then((response) =>{
         res.json(response.data)
@@ -49,9 +50,8 @@ app.get("/api/medium", (req,res) =>{
      })
  });
 
- //mongoDB schema
 
-mongoose.connect('mongodb+srv://ashritramanala:B70X2r9aRrrMaZvO@geo-betcluster.i4cvc.mongodb.net/?retryWrites=true&w=majority&appName=Geo-BetCluster');
+mongoose.connect(process.env.MONGOOSE_CONNECT);
 
 const userSchema = new mongoose.Schema({
     userDisplayName: String,
@@ -62,9 +62,10 @@ const userSchema = new mongoose.Schema({
 
 const userModel = mongoose.model("test", userSchema)
 
-app.get('/api/leaderboard', (req, res) => { //sorts in decreasing order and fetches collection
+
+app.get('/api/leaderboard', (req, res) => {
     userModel.find({})
-        .sort({ score: -1 }).limit(25)
+        .sort({ score: -1 })
         .then(function(users) {
             res.json(users);
         })
@@ -75,7 +76,7 @@ app.get('/api/leaderboard', (req, res) => { //sorts in decreasing order and fetc
 });
 
 app.post('/api/save-game', (req, res) => {
-    const { userDisplayName, score, coins, questionsAnswered } = req.body; //saves data to save-game only if the user beat their previous score if already present
+    const { userDisplayName, score, coins, questionsAnswered } = req.body;
     userModel.findOne({ userDisplayName })
         .then((existingUser) => {
             if (existingUser) {
@@ -87,7 +88,7 @@ app.post('/api/save-game', (req, res) => {
                     existingUser.save()
 
                 }
-            } else { //if user not present, then creates new user
+            } else {
                 const newUser = new userModel({
                     userDisplayName,
                     score,
@@ -100,10 +101,14 @@ app.post('/api/save-game', (req, res) => {
         })
 });
 
-app.get("/", (req,res) =>{ //default get endpoint to root
+ 
+app.get("/", (req,res) =>{
     res.send("hello from the root file")
 });
 
-app.listen(PORT, ()=>{ // port listener
+app.listen(PORT, ()=>{
     console.log('Listening on port 8080');
 }); 
+
+module.exports = { app, userModel };
+
