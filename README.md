@@ -18,6 +18,8 @@ Frameworks: **Node**, **Express**
 
 Database: **MongoDB**
 
+API Testing: **Jest**
+
 Miscellaneous: **Axios**, **Cors**
 
 ## Installation
